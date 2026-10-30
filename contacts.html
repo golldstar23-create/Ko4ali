@@ -1,0 +1,183 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Контакты — Ko4Ali</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/app.js"></script>
+</head>
+
+<body>
+    <!-- Верхняя информационная полоска -->
+    <div class="topline">
+        БЕСПЛАТНАЯ ДОСТАВКА ОТ 15 000 ₸
+        <span>·</span>
+        ТВОЯ СИЛА — ТВОИ ПРАВИЛА
+    </div>
+
+    <!-- Шапка сайта -->
+    <header class="header">
+        <a class="logo" href="index.html">
+            <span class="logo-mark">K</span>
+            Ko4Ali
+        </a>
+
+        <button class="menu-toggle" aria-label="Открыть меню">
+            ☰
+        </button>
+
+        <nav class="nav">
+            <a href="index.html">Главная</a>
+            <a href="catalog.html">Каталог</a>
+            <a href="about.html">О нас</a>
+            <a class="active" href="contacts.html">Контакты</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="icon-link" href="catalog.html">⌕</a>
+
+            <a class="cart-link" href="cart.html">
+                Корзина
+                <b class="cart-count">0</b>
+            </a>
+        </div>
+    </header>
+
+    <!-- Основное содержимое страницы -->
+    <main class="container page-main">
+        <!-- Заголовок страницы -->
+        <div class="page-title">
+            <p class="eyebrow">МЫ НА СВЯЗИ</p>
+
+            <h1>
+                ЕСТЬ <em>ВОПРОСЫ?</em>
+            </h1>
+
+            <p>
+                Поможем подобрать экипировку и ответим на вопросы о заказе.
+            </p>
+        </div>
+
+        <!-- Контактная информация и форма -->
+        <div class="contact-layout">
+
+            <!-- Контактная информация -->
+            <div class="contact-info">
+                <div>
+                    <span class="contact-icon">↗</span>
+
+                    <small>НАПИШИ НАМ</small>
+
+                    <h3>hello@ko4ali.example</h3>
+
+                    <p>
+                        Обычно отвечаем в течение рабочего дня.
+                    </p>
+                </div>
+
+                <div>
+                    <span class="contact-icon">◷</span>
+
+                    <small>ВРЕМЯ РАБОТЫ</small>
+
+                    <h3>Пн — Сб, 09:00–20:00</h3>
+
+                    <p>
+                        Воскресенье — день восстановления.
+                    </p>
+                </div>
+
+                <div>
+                    <span class="contact-icon">◎</span>
+
+                    <small>СОЦСЕТИ</small>
+
+                    <h3>@ko4ali.store</h3>
+
+                    <p>
+                        Тренировки, новинки и мотивация.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Форма обратной связи -->
+            <form class="contact-form" id="contact-form">
+                <h2>
+                    НАПИШИ <em>НАМ</em>
+                </h2>
+
+                <label>
+                    Твоё имя
+
+                    <input
+                        required
+                        name="name"
+                        placeholder="Как к тебе обращаться?"
+                    >
+                </label>
+
+                <label>
+                    Email
+
+                    <input
+                        required
+                        name="email"
+                        type="email"
+                        placeholder="you@example.com"
+                    >
+                </label>
+
+                <label>
+                    Сообщение
+
+                    <textarea
+                        required
+                        name="message"
+                        rows="4"
+                        placeholder="Чем можем помочь?"
+                    ></textarea>
+                </label>
+
+                <button class="btn btn-primary" type="submit">
+                    Отправить сообщение ↗
+                </button>
+
+                <p class="form-note">
+                    Демо-форма: сообщение не отправляется на сервер.
+                </p>
+            </form>
+        </div>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="footer">
+        <div class="container footer-main">
+            <a class="logo" href="index.html">
+                <span class="logo-mark">K</span>
+                Ko4Ali
+            </a>
+
+            <p>Твоя сила. Твой темп. Твой путь.</p>
+
+            <div class="footer-links">
+                <a href="catalog.html">Каталог</a>
+                <a href="about.html">О бренде</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <span>© 2026 Ko4Ali</span>
+            <span>Сделано для движения вперёд.</span>
+        </div>
+    </footer>
+
+    <!-- Уведомления -->
+    <div class="toast" role="status"></div>
+</body>
+</html>
+```

@@ -1,0 +1,971 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет — Ko4Ali</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .account-page {
+            padding: 55px 0 80px;
+        }
+
+        .account-title {
+            margin-bottom: 35px;
+        }
+
+        .account-title h1 {
+            font-family: var(--display);
+            font-size: clamp(45px, 7vw, 75px);
+            line-height: .95;
+            margin: 0 0 12px;
+        }
+
+        .account-title h1 span {
+            color: var(--lime);
+        }
+
+        .account-title p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .account-layout {
+            display: grid;
+            grid-template-columns: 240px minmax(0, 1fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        .account-sidebar,
+        .account-content,
+        .account-panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+        }
+
+        .account-sidebar {
+            padding: 20px;
+        }
+
+        .account-user {
+            padding-bottom: 22px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .account-avatar {
+            width: 54px;
+            height: 54px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 14px;
+            background: var(--lime);
+            color: #111210;
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 900;
+        }
+
+        .account-user strong {
+            display: block;
+            overflow-wrap: anywhere;
+            font-size: 14px;
+        }
+
+        .account-user small {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .account-menu {
+            display: grid;
+            gap: 5px;
+        }
+
+        .account-menu button {
+            width: 100%;
+            padding: 13px 12px;
+            text-align: left;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--muted);
+            font: inherit;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .account-menu button:hover,
+        .account-menu button.active {
+            background: #c6f04b12;
+            border-color: #c6f04b35;
+            color: var(--lime);
+        }
+
+        .account-menu button.logout {
+            color: #ff8888;
+        }
+
+        .account-content {
+            min-width: 0;
+            padding: 28px;
+        }
+
+        .account-section {
+            display: none;
+        }
+
+        .account-section.active {
+            display: block;
+        }
+
+        .account-section h2 {
+            font-family: var(--display);
+            font-size: 35px;
+            margin: 0 0 8px;
+        }
+
+        .section-description {
+            margin: 0 0 25px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .account-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .account-field {
+            min-width: 0;
+        }
+
+        .account-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .account-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 11px;
+        }
+
+        .account-field input,
+        .account-field textarea,
+        .account-field select {
+            width: 100%;
+            min-height: 45px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            outline: none;
+            background: #111210;
+            color: var(--text);
+            font: inherit;
+            font-size: 12px;
+            border-radius: 0;
+        }
+
+        .account-field textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .account-field input:focus,
+        .account-field textarea:focus,
+        .account-field select:focus {
+            border-color: var(--lime);
+        }
+
+        .account-field input[readonly] {
+            color: var(--muted);
+            cursor: not-allowed;
+        }
+
+        .account-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .account-button {
+            min-height: 44px;
+            padding: 12px 18px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--text);
+            font: inherit;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .account-button.primary {
+            border-color: var(--lime);
+            background: var(--lime);
+            color: #111210;
+        }
+
+        .account-button:hover {
+            opacity: .85;
+        }
+
+        .account-alert {
+            display: none;
+            margin-bottom: 20px;
+            padding: 13px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .account-alert.visible {
+            display: block;
+        }
+
+        .account-alert.success {
+            border: 1px solid #c6f04b55;
+            color: var(--lime);
+        }
+
+        .account-alert.error {
+            border: 1px solid #ff777755;
+            color: #ff9999;
+        }
+
+        .account-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .account-stat {
+            padding: 18px;
+            background: #111210;
+            border: 1px solid var(--line);
+        }
+
+        .account-stat strong {
+            display: block;
+            font-family: var(--display);
+            font-size: 32px;
+            color: var(--lime);
+        }
+
+        .account-stat span {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .account-panel {
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .account-panel h3 {
+            font-family: var(--display);
+            font-size: 25px;
+            margin: 0 0 12px;
+        }
+
+        .account-panel p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .account-empty {
+            padding: 30px 15px;
+            text-align: center;
+            border: 1px dashed var(--line);
+        }
+
+        .account-empty strong {
+            display: block;
+            margin-bottom: 10px;
+            font-family: var(--display);
+            font-size: 25px;
+        }
+
+        .account-empty p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .account-empty a {
+            color: var(--lime);
+        }
+
+        .order-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .order-card {
+            padding: 18px;
+            background: #111210;
+            border: 1px solid var(--line);
+        }
+
+        .order-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .order-top strong {
+            font-size: 13px;
+        }
+
+        .order-date {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .order-status {
+            padding: 7px 10px;
+            border: 1px solid #c6f04b55;
+            color: var(--lime);
+            font-size: 9px;
+        }
+
+        .order-items {
+            margin-top: 15px;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .order-total {
+            margin-top: 12px;
+            font-family: var(--display);
+            font-size: 25px;
+        }
+
+        .account-login-message {
+            max-width: 520px;
+            margin: 70px auto;
+            padding: 35px;
+            text-align: center;
+            background: var(--panel);
+            border: 1px solid var(--line);
+        }
+
+        .account-login-message h1 {
+            font-family: var(--display);
+            font-size: 42px;
+            margin: 0 0 15px;
+        }
+
+        .account-login-message p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .account-login-message a {
+            color: var(--lime);
+        }
+
+        @media (max-width: 800px) {
+            .account-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .account-menu {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .account-content {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .account-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .account-field.full {
+                grid-column: auto;
+            }
+
+            .account-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .account-menu {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .account-content {
+                padding: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="topline">
+        БЕСПЛАТНАЯ ДОСТАВКА ОТ 15 000 ₸
+        <span>·</span>
+        ТВОЯ СИЛА — ТВОИ ПРАВИЛА
+    </div>
+
+    <header class="header">
+        <a href="index.html" class="logo">
+            <span class="logo-mark">K</span>
+            <span style="color:inherit">Ko4Ali</span>
+        </a>
+
+        <nav class="nav" id="mainNav">
+            <a href="index.html">Главная</a>
+            <a href="catalog.html">Каталог</a>
+            <a href="about.html">О нас</a>
+            <a href="contacts.html">Контакты</a>
+        </nav>
+
+        <div class="header-actions">
+            <a href="catalog.html" class="icon-link" aria-label="Каталог">⌕</a>
+            <a href="cart.html" class="cart-link">
+                Корзина <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Открыть меню"
+                aria-expanded="false">☰</button>
+    </header>
+
+    <main class="container account-page" id="accountApp">
+
+        <div class="account-title">
+            <p class="eyebrow"><span class="dot"></span> KO4ALI / ЛИЧНЫЙ КАБИНЕТ</p>
+            <h1>ТВОЙ <span>АККАУНТ.</span></h1>
+            <p>Управляй профилем, адресом доставки и своими заказами.</p>
+        </div>
+
+        <div class="account-layout">
+
+            <aside class="account-sidebar">
+                <div class="account-user">
+                    <div class="account-avatar" id="sidebarAvatar">K</div>
+                    <strong id="sidebarName">Пользователь</strong>
+                    <small id="sidebarEmail"></small>
+                </div>
+
+                <nav class="account-menu" aria-label="Разделы личного кабинета">
+                    <button type="button" class="active" data-section="overview">
+                        Обзор аккаунта
+                    </button>
+                    <button type="button" data-section="profile">
+                        Мой профиль
+                    </button>
+                    <button type="button" data-section="address">
+                        Адрес доставки
+                    </button>
+                    <button type="button" data-section="orders">
+                        Мои заказы
+                    </button>
+                    <button type="button" class="logout" id="sidebarLogout">
+                        Выйти из аккаунта
+                    </button>
+                </nav>
+            </aside>
+
+            <div class="account-content">
+
+                <div class="account-alert" id="accountAlert"
+                     role="status" aria-live="polite"></div>
+
+                <section class="account-section active" id="section-overview">
+                    <h2>ОБЗОР АККАУНТА</h2>
+                    <p class="section-description">
+                        Привет, <strong id="welcomeName">спортсмен</strong>!
+                        Здесь собрана информация о твоём аккаунте.
+                    </p>
+
+                    <div class="account-stats">
+                        <div class="account-stat">
+                            <strong id="ordersCount">0</strong>
+                            <span>Всего заказов</span>
+                        </div>
+                        <div class="account-stat">
+                            <strong id="savedAddress">Нет</strong>
+                            <span>Адрес доставки</span>
+                        </div>
+                        <div class="account-stat">
+                            <strong id="profileReady">0%</strong>
+                            <span>Заполнение профиля</span>
+                        </div>
+                    </div>
+
+                    <div class="account-panel">
+                        <h3>ТВОЙ ПРОФИЛЬ</h3>
+                        <p>
+                            Проверь свои контактные данные и сохрани адрес,
+                            чтобы в будущем быстрее оформлять покупки.
+                        </p>
+                        <button class="account-button primary"
+                                type="button" data-go="profile">
+                            РЕДАКТИРОВАТЬ ПРОФИЛЬ →
+                        </button>
+                    </div>
+
+                    <div class="account-panel">
+                        <h3>ПОКУПКИ</h3>
+                        <p>
+                            После оформления заказа его информация будет
+                            отображаться в разделе «Мои заказы».
+                        </p>
+                        <a class="account-button primary"
+                           href="catalog.html"
+                           style="display:inline-block;text-decoration:none">
+                            ПЕРЕЙТИ В КАТАЛОГ →
+                        </a>
+                    </div>
+                </section>
+
+                <section class="account-section" id="section-profile">
+                    <h2>МОЙ ПРОФИЛЬ</h2>
+                    <p class="section-description">
+                        Измени личные данные и сохрани обновления.
+                    </p>
+
+                    <form id="profileForm">
+                        <div class="account-form-grid">
+                            <div class="account-field">
+                                <label for="profileFirstName">Имя</label>
+                                <input id="profileFirstName" name="firstName"
+                                       minlength="2" maxlength="60" required>
+                            </div>
+
+                            <div class="account-field">
+                                <label for="profilePhone">Телефон</label>
+                                <input id="profilePhone" name="phone"
+                                       type="tel" maxlength="25"
+                                       placeholder="+7 700 000 00 00">
+                            </div>
+
+                            <div class="account-field full">
+                                <label for="profileEmailInput">Электронная почта</label>
+                                <input id="profileEmailInput" type="email"
+                                       readonly aria-describedby="emailHelp">
+                                <small id="emailHelp" style="color:var(--muted);font-size:10px">
+                                    Для изменения почты потребуется подтверждение через сервер.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="account-actions">
+                            <button class="account-button primary" type="submit">
+                                СОХРАНИТЬ ИЗМЕНЕНИЯ
+                            </button>
+                            <button class="account-button" type="reset">
+                                СБРОСИТЬ ФОРМУ
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="account-section" id="section-address">
+                    <h2>АДРЕС ДОСТАВКИ</h2>
+                    <p class="section-description">
+                        Сохрани адрес, который планируешь использовать при заказах.
+                    </p>
+
+                    <form id="addressForm">
+                        <div class="account-form-grid">
+                            <div class="account-field full">
+                                <label for="addressCity">Город</label>
+                                <input id="addressCity" maxlength="100"
+                                       placeholder="Например, Семей" required>
+                            </div>
+
+                            <div class="account-field full">
+                                <label for="addressStreet">Улица и дом</label>
+                                <input id="addressStreet" maxlength="200"
+                                       placeholder="Улица, дом, квартира" required>
+                            </div>
+
+                            <div class="account-field">
+                                <label for="addressPostal">Почтовый индекс</label>
+                                <input id="addressPostal" maxlength="20"
+                                       placeholder="Индекс">
+                            </div>
+
+                            <div class="account-field">
+                                <label for="addressComment">Комментарий курьеру</label>
+                                <input id="addressComment" maxlength="250"
+                                       placeholder="Подъезд, этаж и т. д.">
+                            </div>
+                        </div>
+
+                        <div class="account-actions">
+                            <button class="account-button primary" type="submit">
+                                СОХРАНИТЬ АДРЕС
+                            </button>
+                            <button class="account-button" type="button"
+                                    id="clearAddress">
+                                УДАЛИТЬ АДРЕС
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="account-section" id="section-orders">
+                    <h2>МОИ ЗАКАЗЫ</h2>
+                    <p class="section-description">
+                        История покупок и информация о статусе заказа.
+                    </p>
+
+                    <div class="order-list" id="orderList"></div>
+
+                    <div class="account-empty" id="emptyOrders">
+                        <strong>ПОКА НЕТ ЗАКАЗОВ</strong>
+                        <p>
+                            Когда ты оформишь заказ, он появится здесь.
+                            Пока можешь посмотреть товары в каталоге.
+                        </p>
+                        <a href="catalog.html">Открыть каталог →</a>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <section class="container" id="loginRequired" hidden>
+        <div class="account-login-message">
+            <h1>СНАЧАЛА <span style="color:var(--lime)">ВОЙДИ.</span></h1>
+            <p>
+                Чтобы открыть личный кабинет, войди в аккаунт или создай новый.
+            </p>
+            <a class="account-button primary"
+               href="about.html#account"
+               style="display:inline-block;text-decoration:none">
+                ВОЙТИ / РЕГИСТРАЦИЯ →
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-main">
+            <div>
+                <a href="index.html" class="logo">
+                    <span class="logo-mark">K</span>
+                    <span style="color:inherit">Ko4Ali</span>
+                </a>
+                <p>Экипировка для тех, кто становится сильнее каждый день.</p>
+            </div>
+
+            <div class="footer-links">
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <span>© 2026 Ko4Ali. Все права защищены.</span>
+            <span>ТВОЯ СИЛА — ТВОИ ПРАВИЛА</span>
+        </div>
+    </footer>
+
+    <script>
+        const USER_KEY = 'ko4ali-demo-users';
+        const SESSION_KEY = 'ko4ali-demo-session';
+        const PROFILE_KEY = 'ko4ali-demo-profile-';
+        const ADDRESS_KEY = 'ko4ali-demo-address-';
+        const ORDERS_KEY = 'ko4ali-demo-orders-';
+
+        const $ = id => document.getElementById(id);
+
+        let currentUser = null;
+        let currentProfile = null;
+        let currentAddress = null;
+
+        function readJSON(key, fallback) {
+            try {
+                const value = JSON.parse(localStorage.getItem(key));
+                return value ?? fallback;
+            } catch {
+                return fallback;
+            }
+        }
+
+        function getUsers() {
+            const users = readJSON(USER_KEY, []);
+            return Array.isArray(users) ? users : [];
+        }
+
+        function getOrders() {
+            const orders = readJSON(ORDERS_KEY + currentUser.email, []);
+            return Array.isArray(orders) ? orders : [];
+        }
+
+        function saveJSON(key, value) {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+
+        function showAlert(message, type = 'success') {
+            const alert = $('accountAlert');
+            alert.textContent = message;
+            alert.className = 'account-alert visible ' + type;
+        }
+
+        function getFullName(profile) {
+            return (profile.firstName || currentUser.name || 'Пользователь').trim();
+        }
+
+        function showSection(name) {
+            document.querySelectorAll('.account-section').forEach(section => {
+                section.classList.toggle('active', section.id === 'section-' + name);
+            });
+
+            document.querySelectorAll('[data-section]').forEach(button => {
+                button.classList.toggle('active', button.dataset.section === name);
+            });
+        }
+
+        function updateOverview() {
+            const orders = getOrders();
+            const addressExists = Boolean(
+                currentAddress?.city && currentAddress?.street
+            );
+
+            $('ordersCount').textContent = orders.length;
+            $('savedAddress').textContent = addressExists ? 'Да' : 'Нет';
+
+            const fields = [
+                currentProfile.firstName,
+                currentProfile.phone,
+                currentAddress?.city,
+                currentAddress?.street
+            ];
+
+            const completed = fields.filter(value => String(value || '').trim()).length;
+            $('profileReady').textContent = Math.round(completed / fields.length * 100) + '%';
+
+            $('welcomeName').textContent = getFullName(currentProfile);
+            $('sidebarName').textContent = getFullName(currentProfile);
+            $('sidebarEmail').textContent = currentUser.email;
+            $('sidebarAvatar').textContent =
+                getFullName(currentProfile).charAt(0).toUpperCase() || 'K';
+        }
+
+        function renderProfile() {
+            $('profileFirstName').value = currentProfile.firstName || currentUser.name || '';
+            $('profilePhone').value = currentProfile.phone || '';
+            $('profileEmailInput').value = currentUser.email;
+        }
+
+        function renderAddress() {
+            $('addressCity').value = currentAddress?.city || '';
+            $('addressStreet').value = currentAddress?.street || '';
+            $('addressPostal').value = currentAddress?.postal || '';
+            $('addressComment').value = currentAddress?.comment || '';
+        }
+
+        function renderOrders() {
+            const orders = getOrders();
+            const list = $('orderList');
+            list.replaceChildren();
+
+            $('emptyOrders').hidden = orders.length > 0;
+
+            orders.slice().reverse().forEach(order => {
+                const card = document.createElement('article');
+                card.className = 'order-card';
+
+                const top = document.createElement('div');
+                top.className = 'order-top';
+
+                const heading = document.createElement('div');
+                const number = document.createElement('strong');
+                number.textContent = 'Заказ № ' + String(order.id || '—');
+
+                const date = document.createElement('span');
+                date.className = 'order-date';
+                date.textContent = order.date || '';
+
+                heading.append(number, date);
+
+                const status = document.createElement('span');
+                status.className = 'order-status';
+                status.textContent = order.status || 'Принят';
+
+                top.append(heading, status);
+
+                const items = document.createElement('div');
+                items.className = 'order-items';
+                items.textContent = Array.isArray(order.items) && order.items.length
+                    ? order.items.map(item =>
+                        `${item.name || item.title || 'Товар'} × ${Number(item.quantity) || 1}`
+                    ).join(' · ')
+                    : 'Состав заказа не указан';
+
+                const total = document.createElement('div');
+                total.className = 'order-total';
+                total.textContent = (Number(order.total) || 0).toLocaleString('ru-RU') + ' ₸';
+
+                card.append(top, items, total);
+                list.append(card);
+            });
+        }
+
+        function initializeAccount() {
+            const email = localStorage.getItem(SESSION_KEY);
+            const users = getUsers();
+
+            currentUser = users.find(user => user.email === email) || null;
+
+            if (!currentUser) {
+                $('accountApp').hidden = true;
+                $('loginRequired').hidden = false;
+                return;
+            }
+
+            $('accountApp').hidden = false;
+            $('loginRequired').hidden = true;
+
+            currentProfile = readJSON(PROFILE_KEY + currentUser.email, {
+                firstName: currentUser.name || '',
+                phone: ''
+            });
+
+            currentAddress = readJSON(ADDRESS_KEY + currentUser.email, null);
+
+            renderProfile();
+            renderAddress();
+            renderOrders();
+            updateOverview();
+        }
+
+        document.querySelectorAll('[data-section]').forEach(button => {
+            button.addEventListener('click', () => {
+                showSection(button.dataset.section);
+            });
+        });
+
+        document.querySelectorAll('[data-go]').forEach(button => {
+            button.addEventListener('click', () => {
+                showSection(button.dataset.go);
+            });
+        });
+
+        $('profileForm').addEventListener('submit', event => {
+            event.preventDefault();
+
+            const firstName = $('profileFirstName').value.trim();
+            const phone = $('profilePhone').value.trim();
+
+            if (firstName.length < 2) {
+                showAlert('Имя должно содержать минимум 2 символа.', 'error');
+                return;
+            }
+
+            if (phone && !/^[+\d()\-\s]{7,25}$/.test(phone)) {
+                showAlert('Проверь формат номера телефона.', 'error');
+                return;
+            }
+
+            try {
+                currentProfile = { firstName, phone };
+                saveJSON(PROFILE_KEY + currentUser.email, currentProfile);
+                updateOverview();
+                showAlert('Данные профиля сохранены в этом браузере.');
+            } catch {
+                showAlert('Не удалось сохранить данные в браузере.', 'error');
+            }
+        });
+
+        $('profileForm').addEventListener('reset', () => {
+            setTimeout(renderProfile, 0);
+        });
+
+        $('addressForm').addEventListener('submit', event => {
+            event.preventDefault();
+
+            const city = $('addressCity').value.trim();
+            const street = $('addressStreet').value.trim();
+
+            if (!city || !street) {
+                showAlert('Укажи город, улицу и дом.', 'error');
+                return;
+            }
+
+            try {
+                currentAddress = {
+                    city,
+                    street,
+                    postal: $('addressPostal').value.trim(),
+                    comment: $('addressComment').value.trim()
+                };
+
+                saveJSON(ADDRESS_KEY + currentUser.email, currentAddress);
+                updateOverview();
+                showAlert('Адрес сохранён в этом браузере.');
+            } catch {
+                showAlert('Не удалось сохранить адрес.', 'error');
+            }
+        });
+
+        $('clearAddress').addEventListener('click', () => {
+            try {
+                localStorage.removeItem(ADDRESS_KEY + currentUser.email);
+                currentAddress = null;
+                renderAddress();
+                updateOverview();
+                showAlert('Адрес доставки удалён.');
+            } catch {
+                showAlert('Не удалось удалить адрес.', 'error');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem(SESSION_KEY);
+            window.location.href = 'about.html#account';
+        }
+
+        $('sidebarLogout').addEventListener('click', logout);
+
+        // Мобильное меню
+        $('menuToggle').addEventListener('click', () => {
+            const opened = $('mainNav').classList.toggle('open');
+            $('menuToggle').setAttribute('aria-expanded', String(opened));
+            $('menuToggle').textContent = opened ? '×' : '☰';
+        });
+
+        // Счётчик корзины
+        try {
+            const cart = readJSON('ko4ali-cart', []);
+            const count = Array.isArray(cart)
+                ? cart.reduce((total, item) => total + (Number(item.quantity) || 1), 0)
+                : 0;
+
+            $('cartCount').textContent = count;
+        } catch {
+            $('cartCount').textContent = '0';
+        }
+
+        initializeAccount();
+    </script>
+
+</body>
+</html>

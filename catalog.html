@@ -1,0 +1,143 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Каталог — Ko4Ali</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/app.js"></script>
+</head>
+
+<body>
+    <!-- Верхняя информационная полоска -->
+    <div class="topline">
+        БЕСПЛАТНАЯ ДОСТАВКА ОТ 15 000 ₸
+        <span>·</span>
+        ТВОЯ СИЛА — ТВОИ ПРАВИЛА
+    </div>
+
+    <!-- Шапка сайта -->
+    <header class="header">
+        <a class="logo" href="index.html">
+            <span class="logo-mark">K</span>
+            Ko4Ali
+        </a>
+
+        <button class="menu-toggle" aria-label="Открыть меню">
+            ☰
+        </button>
+
+        <nav class="nav">
+            <a href="index.html">Главная</a>
+            <a class="active" href="catalog.html">Каталог</a>
+            <a href="about.html">О нас</a>
+            <a href="contacts.html">Контакты</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="icon-link" href="#catalog-search">⌕</a>
+
+            <a class="cart-link" href="cart.html">
+                Корзина
+                <b class="cart-count">0</b>
+            </a>
+        </div>
+    </header>
+
+    <!-- Основное содержимое страницы -->
+    <main class="page-main container">
+        <!-- Заголовок каталога -->
+        <div class="page-title">
+            <p class="eyebrow">НАЙДИ СВОЙ ИНСТРУМЕНТ</p>
+
+            <h1>
+                КАТАЛОГ <em>ЭКИПИРОВКИ</em>
+            </h1>
+
+            <p>
+                Функциональные вещи для сильных результатов.
+            </p>
+        </div>
+
+        <!-- Поиск, категории и сортировка -->
+        <div class="catalog-toolbar">
+            <label class="search-box">
+                ⌕
+
+                <input
+                    id="catalog-search"
+                    type="search"
+                    placeholder="Найти товар..."
+                >
+            </label>
+
+            <select id="category-filter" aria-label="Категория">
+                <option value="">Все категории</option>
+                <option>Одежда</option>
+                <option>Аксессуары</option>
+                <option>Питание</option>
+            </select>
+
+            <select id="sort-filter" aria-label="Сортировка">
+                <option value="featured">Сначала популярные</option>
+                <option value="price-asc">Сначала дешевле</option>
+                <option value="price-desc">Сначала дороже</option>
+            </select>
+        </div>
+
+        <!-- Количество найденных товаров -->
+        <p class="results-count" id="results-count"></p>
+
+        <!-- Карточки товаров -->
+        <div
+            class="product-grid catalog-grid"
+            id="catalog-products"
+        ></div>
+
+        <!-- Сообщение, если товары не найдены -->
+        <div class="empty-state hidden" id="empty-state">
+            <span>⌕</span>
+
+            <h3>Ничего не найдено</h3>
+
+            <p>
+                Попробуй изменить запрос или категорию.
+            </p>
+
+            <button class="btn btn-primary" id="reset-filters">
+                Сбросить фильтры
+            </button>
+        </div>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="footer">
+        <div class="container footer-main">
+            <a class="logo" href="index.html">
+                <span class="logo-mark">K</span>
+                Ko4Ali
+            </a>
+
+            <p>Твоя сила. Твой темп. Твой путь.</p>
+
+            <div class="footer-links">
+                <a href="catalog.html">Каталог</a>
+                <a href="about.html">О бренде</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <span>© 2026 Ko4Ali</span>
+            <span>Сделано для движения вперёд.</span>
+        </div>
+    </footer>
+
+    <!-- Уведомления -->
+    <div class="toast" role="status"></div>
+</body>
+</html>
+```

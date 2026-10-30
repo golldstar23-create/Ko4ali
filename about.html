@@ -1,0 +1,951 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас — Ko4Ali</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .about-page {
+            padding: 70px 0;
+        }
+
+        .about-intro {
+            margin-bottom: 55px;
+        }
+
+        .about-intro h1 {
+            font-family: var(--display);
+            font-size: clamp(55px, 8vw, 100px);
+            line-height: .9;
+            margin: 0 0 25px;
+        }
+
+        .about-intro h1 span {
+            color: var(--lime);
+        }
+
+        .about-intro p {
+            max-width: 650px;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+
+        .about-banner {
+            min-height: 300px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background:
+                linear-gradient(90deg, #111210ee, #11121055),
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=85')
+                center / cover;
+            margin-bottom: 65px;
+        }
+
+        .about-banner h2 {
+            font-family: var(--display);
+            font-size: clamp(45px, 7vw, 78px);
+            line-height: .9;
+            margin: 0;
+        }
+
+        .about-banner h2 span {
+            color: var(--lime);
+        }
+
+        .about-banner p {
+            color: #ccc;
+            max-width: 420px;
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 80px;
+        }
+
+        .about-value {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            padding: 25px;
+        }
+
+        .about-value strong {
+            color: var(--lime);
+            font-family: var(--display);
+            font-size: 28px;
+        }
+
+        .about-value h3 {
+            font-size: 15px;
+        }
+
+        .about-value p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .account-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 45px;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .account-info h2 {
+            font-family: var(--display);
+            font-size: clamp(45px, 6vw, 70px);
+            line-height: .9;
+            margin: 0 0 20px;
+        }
+
+        .account-info h2 span {
+            color: var(--lime);
+        }
+
+        .account-info p {
+            color: var(--muted);
+            line-height: 1.9;
+            font-size: 13px;
+        }
+
+        .account-points {
+            margin-top: 28px;
+            display: grid;
+            gap: 15px;
+        }
+
+        .account-point {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+        }
+
+        .account-point span {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            background: #c6f04b18;
+            color: var(--lime);
+        }
+
+        .account-card {
+            padding: 30px;
+            background: var(--panel);
+            border: 1px solid var(--line);
+        }
+
+        .account-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            padding: 5px;
+            background: #111210;
+            margin-bottom: 28px;
+        }
+
+        .account-tab {
+            padding: 13px 8px;
+            background: transparent;
+            border: 0;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .account-tab.active {
+            background: var(--lime);
+            color: #111210;
+        }
+
+        .account-card h3 {
+            font-family: var(--display);
+            font-size: 35px;
+            margin: 0 0 6px;
+        }
+
+        .account-subtitle {
+            color: var(--muted);
+            font-size: 11px;
+            margin: 0 0 25px;
+        }
+
+        .account-form label {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 7px;
+            color: #d3d3cc;
+        }
+
+        .account-field {
+            margin-bottom: 17px;
+        }
+
+        .account-field input {
+            width: 100%;
+            height: 46px;
+            padding: 0 12px;
+            background: #111210;
+            border: 1px solid var(--line);
+            outline: none;
+            color: var(--text);
+            font-family: var(--body);
+            font-size: 12px;
+        }
+
+        .account-field input:focus {
+            border-color: var(--lime);
+        }
+
+        .account-password {
+            position: relative;
+        }
+
+        .account-password input {
+            padding-right: 75px;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 46px;
+            padding: 0 10px;
+            border: 0;
+            background: transparent;
+            color: var(--lime);
+            font-size: 9px;
+            cursor: pointer;
+        }
+
+        .account-error {
+            display: block;
+            color: #ff7777;
+            font-size: 10px;
+            margin-top: 6px;
+        }
+
+        .account-checkbox {
+            display: flex !important;
+            align-items: flex-start;
+            gap: 9px;
+            color: var(--muted) !important;
+            font-size: 10px !important;
+            line-height: 1.7;
+            margin: 18px 0;
+        }
+
+        .account-checkbox input {
+            accent-color: var(--lime);
+            margin-top: 3px;
+        }
+
+        .account-checkbox a {
+            color: var(--lime);
+        }
+
+        .account-submit {
+            width: 100%;
+            min-height: 48px;
+            background: var(--lime);
+            color: #111210;
+            border: 0;
+            font-size: 11px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .account-submit:hover {
+            background: #d9ff78;
+        }
+
+        .account-message {
+            display: none;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .account-message.success {
+            display: block;
+            border: 1px solid #c6f04b55;
+            color: var(--lime);
+            background: #c6f04b10;
+        }
+
+        .account-message.error {
+            display: block;
+            border: 1px solid #ff777755;
+            color: #ff9999;
+            background: #ff777710;
+        }
+
+        .account-footnote {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .account-footnote a {
+            color: var(--lime);
+        }
+
+        .account-dashboard {
+            display: none;
+        }
+
+        .account-dashboard.visible {
+            display: block;
+        }
+
+        .dashboard-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-heading h3 {
+            margin: 0;
+        }
+
+        .logout-button {
+            padding: 9px 12px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        .profile-detail {
+            padding: 13px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .profile-detail span {
+            color: var(--muted);
+            display: block;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .dashboard-orders {
+            padding: 18px;
+            margin-top: 20px;
+            background: #111210;
+        }
+
+        .dashboard-orders h4 {
+            margin: 0 0 8px;
+            font-size: 12px;
+        }
+
+        .dashboard-orders p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 800px) {
+            .account-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .about-values {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .about-page {
+                padding: 45px 0;
+            }
+
+            .about-banner {
+                padding: 25px;
+                min-height: 240px;
+            }
+
+            .account-card {
+                padding: 22px 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="topline">
+        БЕСПЛАТНАЯ ДОСТАВКА ОТ 15 000 ₸
+        <span>·</span>
+        ТВОЯ СИЛА — ТВОИ ПРАВИЛА
+    </div>
+
+    <header class="header">
+        <a href="index.html" class="logo">
+            <span class="logo-mark">K</span>
+            <span style="color:inherit">Ko4Ali</span>
+        </a>
+
+        <nav class="nav" id="mainNav">
+            <a href="index.html">Главная</a>
+            <a href="catalog.html">Каталог</a>
+            <a href="about.html" class="active">О нас</a>
+            <a href="contacts.html">Контакты</a>
+        </nav>
+
+        <div class="header-actions">
+            <a href="catalog.html" class="icon-link" aria-label="Каталог">⌕</a>
+            <a href="cart.html" class="cart-link">
+                Корзина <span class="cart-count" id="cartCount">0</span>
+            </a>
+            <a href="#account" class="cart-link">Аккаунт</a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Открыть меню"
+                aria-expanded="false">☰</button>
+    </header>
+
+    <main class="container about-page">
+
+        <section class="about-intro">
+            <p class="eyebrow"><span class="dot"></span> НАША ИСТОРИЯ</p>
+            <h1>ТВОЯ СИЛА.<br><span>ТВОИ ПРАВИЛА.</span></h1>
+            <p>
+                Ko4Ali — магазин экипировки для тренировок.
+                Мы создаём удобный способ находить товары для спорта,
+                выбирать нужное оборудование и постепенно собирать
+                всё необходимое для своих целей.
+            </p>
+            <a href="catalog.html" class="btn btn-primary">
+                ПЕРЕЙТИ В КАТАЛОГ →
+            </a>
+        </section>
+
+        <section class="about-banner">
+            <p class="eyebrow">KO4ALI / TRAINING CULTURE</p>
+            <h2>NO EXCUSES.<br><span>JUST WORK.</span></h2>
+            <p>Результат приходит к тем, кто продолжает работать.</p>
+        </section>
+
+        <section>
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">НАШИ ПРИНЦИПЫ</p>
+                    <h2>ПОЧЕМУ <em>KO4ALI?</em></h2>
+                </div>
+            </div>
+
+            <div class="about-values">
+                <article class="about-value">
+                    <strong>01</strong>
+                    <h3>Для тренировок</h3>
+                    <p>Экипировка и аксессуары для занятий в зале и активного образа жизни.</p>
+                </article>
+
+                <article class="about-value">
+                    <strong>02</strong>
+                    <h3>Удобный выбор</h3>
+                    <p>Каталог, поиск товаров, корзина и оформление заказов в одном месте.</p>
+                </article>
+
+                <article class="about-value">
+                    <strong>03</strong>
+                    <h3>Твой прогресс</h3>
+                    <p>Создавай цели, тренируйся регулярно и двигайся к своим результатам.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="account-section" id="account">
+
+            <div class="account-info">
+                <p class="eyebrow"><span class="dot"></span> ЛИЧНЫЙ КАБИНЕТ</p>
+                <h2>ТВОЙ ПРОФИЛЬ.<br><span>ТВОИ ПОКУПКИ.</span></h2>
+                <p>
+                    Создай аккаунт Ko4Ali. В личном кабинете будут отображаться
+                    данные профиля и основа для истории заказов. Позже подключим
+                    кабинет к корзине, оформлению покупок и серверной базе данных.
+                </p>
+
+                <div class="account-points">
+                    <div class="account-point">
+                        <span>✓</span>
+                        <div>Личные данные и профиль</div>
+                    </div>
+                    <div class="account-point">
+                        <span>✓</span>
+                        <div>Вход и выход из аккаунта</div>
+                    </div>
+                    <div class="account-point">
+                        <span>✓</span>
+                        <div>Основа для истории заказов</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="account-card">
+
+                <div id="accountForms">
+                    <div class="account-tabs">
+                        <button type="button" class="account-tab active"
+                                data-tab="register">Регистрация</button>
+                        <button type="button" class="account-tab"
+                                data-tab="login">Войти</button>
+                    </div>
+
+                    <div id="registerPanel">
+                        <h3>СОЗДАТЬ АККАУНТ</h3>
+                        <p class="account-subtitle">Заполни данные для своего профиля.</p>
+
+                        <form class="account-form" id="registerForm" novalidate>
+                            <div class="account-field">
+                                <label for="registerName">Имя</label>
+                                <input type="text" id="registerName"
+                                       placeholder="Как тебя зовут?"
+                                       minlength="2" maxlength="60"
+                                       autocomplete="name" required>
+                                <small class="account-error" id="registerNameError"></small>
+                            </div>
+
+                            <div class="account-field">
+                                <label for="registerEmail">Электронная почта</label>
+                                <input type="email" id="registerEmail"
+                                       placeholder="name@example.com"
+                                       maxlength="254"
+                                       autocomplete="email" required>
+                                <small class="account-error" id="registerEmailError"></small>
+                            </div>
+
+                            <div class="account-field">
+                                <label for="registerPassword">Пароль</label>
+                                <div class="account-password">
+                                    <input type="password" id="registerPassword"
+                                           placeholder="Минимум 8 символов"
+                                           minlength="8" maxlength="128"
+                                           autocomplete="new-password" required>
+                                    <button class="show-password" type="button"
+                                            data-password="registerPassword">ПОКАЗАТЬ</button>
+                                </div>
+                                <small class="account-error" id="registerPasswordError"></small>
+                            </div>
+
+                            <div class="account-field">
+                                <label for="registerConfirm">Повтори пароль</label>
+                                <div class="account-password">
+                                    <input type="password" id="registerConfirm"
+                                           placeholder="Повтори пароль"
+                                           minlength="8" maxlength="128"
+                                           autocomplete="new-password" required>
+                                    <button class="show-password" type="button"
+                                            data-password="registerConfirm">ПОКАЗАТЬ</button>
+                                </div>
+                                <small class="account-error" id="registerConfirmError"></small>
+                            </div>
+
+                            <label class="account-checkbox">
+                                <input type="checkbox" id="acceptTerms">
+                                <span>
+                                    Я соглашаюсь с условиями использования сайта
+                                    и обработкой персональных данных.
+                                </span>
+                            </label>
+                            <small class="account-error" id="termsError"></small>
+
+                            <button class="account-submit" type="submit">
+                                СОЗДАТЬ АККАУНТ →
+                            </button>
+                        </form>
+                    </div>
+
+                    <div id="loginPanel" hidden>
+                        <h3>С ВОЗВРАЩЕНИЕМ</h3>
+                        <p class="account-subtitle">Войди в свой аккаунт Ko4Ali.</p>
+
+                        <form class="account-form" id="loginForm" novalidate>
+                            <div class="account-field">
+                                <label for="loginEmail">Электронная почта</label>
+                                <input type="email" id="loginEmail"
+                                       placeholder="name@example.com"
+                                       autocomplete="email" required>
+                                <small class="account-error" id="loginEmailError"></small>
+                            </div>
+
+                            <div class="account-field">
+                                <label for="loginPassword">Пароль</label>
+                                <div class="account-password">
+                                    <input type="password" id="loginPassword"
+                                           placeholder="Твой пароль"
+                                           autocomplete="current-password" required>
+                                    <button class="show-password" type="button"
+                                            data-password="loginPassword">ПОКАЗАТЬ</button>
+                                </div>
+                                <small class="account-error" id="loginPasswordError"></small>
+                            </div>
+
+                            <button class="account-submit" type="submit">
+                                ВОЙТИ В АККАУНТ →
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="account-message" id="accountMessage"
+                         role="status" aria-live="polite"></div>
+
+                    <p class="account-footnote">
+                        Используй уникальный пароль, который не применяешь
+                        для других важных аккаунтов.
+                    </p>
+                </div>
+
+                <div class="account-dashboard" id="accountDashboard">
+                    <div class="dashboard-heading">
+                        <h3>МОЙ ПРОФИЛЬ</h3>
+                        <button class="logout-button" id="logoutButton" type="button">
+                            ВЫЙТИ
+                        </button>
+                    </div>
+
+                    <p class="account-subtitle">Ты вошёл в свой аккаунт Ko4Ali.</p>
+
+                    <div class="profile-detail">
+                        <span>Имя</span>
+                        <strong id="profileName"></strong>
+                    </div>
+
+                    <div class="profile-detail">
+                        <span>Электронная почта</span>
+                        <strong id="profileEmail"></strong>
+                    </div>
+
+                    <div class="dashboard-orders">
+                        <h4>МОИ ЗАКАЗЫ</h4>
+                        <p>
+                            Здесь появится история покупок, когда подключим
+                            оформление заказов и серверную часть магазина.
+                        </p>
+                        <a href="catalog.html" class="btn btn-primary">
+                            ПЕРЕЙТИ К ПОКУПКАМ →
+                        </a>
+                    </div>
+
+                    <p class="account-footnote">
+                        Данные этого демонстрационного кабинета хранятся
+                        только в текущем браузере.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-main">
+            <div>
+                <a href="index.html" class="logo">
+                    <span class="logo-mark">K</span>
+                    <span style="color:inherit">Ko4Ali</span>
+                </a>
+                <p>Экипировка для тех, кто становится сильнее каждый день.</p>
+            </div>
+
+            <div class="footer-links">
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <span>© 2026 Ko4Ali. Все права защищены.</span>
+            <span>ТВОЯ СИЛА — ТВОИ ПРАВИЛА</span>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', () => {
+            const opened = mainNav.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', String(opened));
+            menuToggle.textContent = opened ? '×' : '☰';
+        });
+
+        // Переключение между регистрацией и входом
+        const tabs = document.querySelectorAll('.account-tab');
+        const registerPanel = document.getElementById('registerPanel');
+        const loginPanel = document.getElementById('loginPanel');
+        const accountMessage = document.getElementById('accountMessage');
+
+        function showTab(tabName) {
+            const registering = tabName === 'register';
+
+            registerPanel.hidden = !registering;
+            loginPanel.hidden = registering;
+
+            tabs.forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.tab === tabName);
+            });
+
+            accountMessage.className = 'account-message';
+            accountMessage.textContent = '';
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => showTab(tab.dataset.tab));
+        });
+
+        // Показать или скрыть пароль
+        document.querySelectorAll('.show-password').forEach(button => {
+            button.addEventListener('click', () => {
+                const input = document.getElementById(button.dataset.password);
+                const show = input.type === 'password';
+
+                input.type = show ? 'text' : 'password';
+                button.textContent = show ? 'СКРЫТЬ' : 'ПОКАЗАТЬ';
+            });
+        });
+
+        // Вспомогательные функции
+        function setFieldError(inputId, errorId, message) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(errorId);
+
+            if (input) {
+                input.style.borderColor = message ? '#ff7777' : '';
+                input.setAttribute('aria-invalid', String(Boolean(message)));
+            }
+
+            if (error) error.textContent = message;
+        }
+
+        function showMessage(message, type) {
+            accountMessage.textContent = message;
+            accountMessage.className = 'account-message ' + type;
+        }
+
+        function getUsers() {
+            try {
+                const users = JSON.parse(localStorage.getItem('ko4ali-demo-users') || '[]');
+                return Array.isArray(users) ? users : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem('ko4ali-demo-users', JSON.stringify(users));
+        }
+
+        function getCurrentUser() {
+            try {
+                const email = localStorage.getItem('ko4ali-demo-session');
+                if (!email) return null;
+
+                return getUsers().find(user => user.email === email) || null;
+            } catch {
+                return null;
+            }
+        }
+
+        function renderDashboard(user) {
+            document.getElementById('accountForms').hidden = Boolean(user);
+            document.getElementById('accountDashboard').classList.toggle('visible', Boolean(user));
+
+            if (user) {
+                document.getElementById('profileName').textContent = user.name;
+                document.getElementById('profileEmail').textContent = user.email;
+            }
+        }
+
+        // Регистрация — демонстрационный режим без сервера
+        document.getElementById('registerForm').addEventListener('submit', event => {
+            event.preventDefault();
+
+            const name = document.getElementById('registerName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim().toLowerCase();
+            const password = document.getElementById('registerPassword').value;
+            const confirm = document.getElementById('registerConfirm').value;
+            const terms = document.getElementById('acceptTerms').checked;
+
+            const errors = [
+                ['registerName', 'registerNameError', ''],
+                ['registerEmail', 'registerEmailError', ''],
+                ['registerPassword', 'registerPasswordError', ''],
+                ['registerConfirm', 'registerConfirmError', '']
+            ];
+
+            errors.forEach(([inputId, errorId, message]) => {
+                setFieldError(inputId, errorId, message);
+            });
+
+            document.getElementById('termsError').textContent = '';
+            accountMessage.className = 'account-message';
+
+            let valid = true;
+
+            if (name.length < 2) {
+                setFieldError('registerName', 'registerNameError',
+                    'Имя должно содержать минимум 2 символа.');
+                valid = false;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                setFieldError('registerEmail', 'registerEmailError',
+                    'Введи корректный адрес электронной почты.');
+                valid = false;
+            }
+
+            if (password.length < 8 || !/[a-zа-я]/i.test(password) || !/\d/.test(password)) {
+                setFieldError('registerPassword', 'registerPasswordError',
+                    'Используй минимум 8 символов, буквы и цифры.');
+                valid = false;
+            }
+
+            if (password !== confirm) {
+                setFieldError('registerConfirm', 'registerConfirmError',
+                    'Пароли не совпадают.');
+                valid = false;
+            }
+
+            if (!terms) {
+                document.getElementById('termsError').textContent =
+                    'Необходимо подтвердить согласие.';
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            try {
+                const users = getUsers();
+
+                if (users.some(user => user.email === email)) {
+                    setFieldError('registerEmail', 'registerEmailError',
+                        'Аккаунт с этой почтой уже существует.');
+                    return;
+                }
+
+                /*
+                 * ВНИМАНИЕ:
+                 * Это только локальная демонстрация интерфейса.
+                 * Для настоящего сайта нельзя хранить пароли в localStorage.
+                 * Перед публикацией нужно подключить сервер, безопасное
+                 * хеширование паролей и базу данных.
+                 */
+
+                users.push({
+                    name,
+                    email,
+                    demoPassword: password
+                });
+
+                saveUsers(users);
+                localStorage.setItem('ko4ali-demo-session', email);
+
+                document.getElementById('registerForm').reset();
+                renderDashboard({ name, email });
+
+                showMessage('Аккаунт создан в демонстрационном режиме.',
+                    'success');
+            } catch {
+                showMessage(
+                    'Браузер не разрешил сохранить данные. Проверь настройки хранилища.',
+                    'error'
+                );
+            }
+        });
+
+        // Вход
+        document.getElementById('loginForm').addEventListener('submit', event => {
+            event.preventDefault();
+
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
+
+            setFieldError('loginEmail', 'loginEmailError', '');
+            setFieldError('loginPassword', 'loginPasswordError', '');
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                setFieldError('loginEmail', 'loginEmailError',
+                    'Введи корректную электронную почту.');
+                return;
+            }
+
+            if (!password) {
+                setFieldError('loginPassword', 'loginPasswordError',
+                    'Введи пароль.');
+                return;
+            }
+
+            const user = getUsers().find(item =>
+                item.email === email && item.demoPassword === password
+            );
+
+            if (!user) {
+                showMessage(
+                    'Не удалось войти. Проверь данные или создай новый аккаунт.',
+                    'error'
+                );
+                return;
+            }
+
+            try {
+                localStorage.setItem('ko4ali-demo-session', user.email);
+                document.getElementById('loginForm').reset();
+                renderDashboard(user);
+                showMessage('Ты успешно вошёл в аккаунт.', 'success');
+            } catch {
+                showMessage('Не удалось сохранить сессию в браузере.', 'error');
+            }
+        });
+
+        // Выход
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            localStorage.removeItem('ko4ali-demo-session');
+            renderDashboard(null);
+            showTab('login');
+            showMessage('Ты вышел из аккаунта.', 'success');
+        });
+
+        // Восстановление демонстрационной сессии
+        renderDashboard(getCurrentUser());
+
+        // Счётчик корзины
+        try {
+            const cart = JSON.parse(localStorage.getItem('ko4ali-cart') || '[]');
+            const count = cart.reduce((total, item) => {
+                return total + (Number(item.quantity) || 1);
+            }, 0);
+
+            document.getElementById('cartCount').textContent = count;
+        } catch {
+            document.getElementById('cartCount').textContent = '0';
+        }
+    </script>
+
+</body>
+</html>
